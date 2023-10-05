@@ -1,9 +1,16 @@
-﻿namespace senai.inlock.webApi_.Domains
-{
-    public class TipoUsuarioRepository
-    {
-        public int IdTipoUsuario { get; set; }
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-        public string Titulo { get; set; }
+namespace senai.inlock.webApi_.Domains
+{
+    [Table("TiposUsuario")]
+    public class TiposUsuario
+    {
+        [Key]
+        public Guid IdTipoUsuario { get; set; } = Guid.NewGuid();
+
+        [Column(TypeName = "VARCHAR(100)")]
+        [Required(ErrorMessage = "Tipo do usuário obrigatório!")]
+        public string? Titulo { get; set; }
     }
 }

@@ -14,8 +14,7 @@ namespace senai.inlock.webApi_.Controllers
     [Produces("application/json")]
     public class UsuarioController : ControllerBase
     {
-        private IUsuarioRepository _usuarioRepository;
-        private SecurityToken token;
+        private IUsuarioRepository _usuarioRepository { get; set; }
 
         public UsuarioController()
         {
@@ -23,47 +22,18 @@ namespace senai.inlock.webApi_.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UsuarioDomain usuario)
+        public IActionResult Post(Usuario usuario)
         {
             try
             {
-                UsuarioDomain usuarioBuscado = _usuarioRepository.Logar(usuario.Email, usuario.Senha);
+                _usuarioRepository.Cadastrar(usuario);
 
-                if (usuarioBuscado == null)
-                {
-                    return NotFound("Email ou senha invalidos !");
-                }
-
-                var claims = new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Jti,usuarioBuscado.IdUsuario.ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email,usuarioBuscado.Email),
-                    new Claim(ClaimTypes.Role,usuarioBuscado.IdTipoUsuario.ToString())
-                    
-                };
-
-                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("inlock-chave-autenticacao-webapi-dev"));
-
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                var token = new JwtSecurityToken
-                { 
-                    Issuer: "senai.inlock.webApi.",
-
-                    Audience: "senai.inlock.webApi.",
-
-                    Claims: claims:;
-
-                    Expires: DateTime.Now.AddMinutes(5);
-
-                    SigningCredentials: creds:;
-                }
-
-                //5 - Retornar token criado
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token)
-                });
+                return Ok();
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
         }
     }
 }

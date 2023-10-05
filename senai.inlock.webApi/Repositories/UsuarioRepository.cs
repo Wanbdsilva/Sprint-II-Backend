@@ -8,35 +8,47 @@ namespace senai.inlock.webApi_.Repositories
     {
         private string StringConexao = "Data Source =NOTE18-S15; Initial catalog =inlock_games; User id = sa; pwd = Senai@134";
 
-        public UsuarioDomain Logar(string email, string senha)
+        private readonly InlockContext ctx;
+
+        /// <summary>
+        /// Construtor do repositório
+        /// Toda vez que o repositório for instanciado,
+        /// Ele terá acesso aos dados fornecidos pelo contexto
+        /// </summary>
+        public UsuarioRepository()
         {
-            using (SqlConnection con = new SqlConnection(StringConexao))
+            ctx = new InlockContext();
+        }
+
+        public Usuario BuscarUsuario(string email, string senha)
+        {
+            try
             {
-                string queryLogin = "SELECT IdUsuario, Email, IdTipoUsuario FROM Usuario WHERE Email = @Email AND Senha = @Senha";
 
-                con.Open();
+            }
+            catch (Exception)
+            {
 
-                using (SqlCommand cmd = new SqlCommand(queryLogin, con))
-                {
-                    cmd.Parameters.AddWithValue("@Email", email);
-                    cmd.Parameters.AddWithValue("@Senha", senha);
+                throw;
+            }
+        }
 
-                    SqlDataReader rdr = cmd.ExecuteReader();
+        public void Cadastrar(Usuario usuario)
+        {
+            try
+            {
 
-                    if (rdr.Read())
-                    {
-                        UsuarioDomain usuario = new UsuarioDomain
-                        {
-                            IdUsuario = Convert.ToInt32(rdr["IdUsuario"]),
+                usuario.Senha = Criptografia.GerarHash(usuario.Senha!);
 
-                            Email = rdr["Email"].ToString(),
 
-                            IdTipoUsuario = Convert.ToInt32(rdr["IdTipoUsuario"])
-                        };
-                        return usuario;
-                    }
-                    return null;
-                }
+                ctx.Usuario.Add(usuario);
+
+
+                ctx.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

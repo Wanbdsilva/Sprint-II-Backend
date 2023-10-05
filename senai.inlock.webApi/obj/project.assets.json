@@ -1677,11 +1677,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\48599214888\\Desktop\\Filmes-Sprint2\\senai.inlock.webApi\\senai.inlock.webApi..csproj",
+      "projectUniqueName": "C:\\Users\\48599214888\\Desktop\\Inlock.Games.Senai\\senai.inlock.webApi\\senai.inlock.webApi..csproj",
       "projectName": "senai.inlock.webApi.",
-      "projectPath": "C:\\Users\\48599214888\\Desktop\\Filmes-Sprint2\\senai.inlock.webApi\\senai.inlock.webApi..csproj",
+      "projectPath": "C:\\Users\\48599214888\\Desktop\\Inlock.Games.Senai\\senai.inlock.webApi\\senai.inlock.webApi..csproj",
       "packagesPath": "C:\\Users\\48599214888\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\48599214888\\Desktop\\Filmes-Sprint2\\senai.inlock.webApi\\obj\\",
+      "outputPath": "C:\\Users\\48599214888\\Desktop\\Inlock.Games.Senai\\senai.inlock.webApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\48599214888\\AppData\\Roaming\\NuGet\\NuGet.Config",
